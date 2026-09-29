@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des films</title>
+</head>
+<body>
+    <h1>Liste des films</h1>
+    <p>
+        Cette page affiche une liste de films avec leurs affiches, réalisateurs et titres. Les données sont extraites de Wikidata en utilisant une requête SPARQL. Vous pouvez voir les résultats directement sur cette page grâce à l'iframe ci-dessous.
+    </p>
+    <p>voici la requête SPARQL utilisée :</p>
+    <pre>
+        <code>
+            #defaultView:ImageGrid
+
+            SELECT DISTINCT ?film_poster ?director ?directorLabel ?film ?filmLabel ?title WHERE {
+
+            ?film wdt:P31 wd:Q11424;
+
+                wdt:P3383 ?film_poster;
+
+                wdt:P1476 ?title.
+
+            ?film wdt:P136 wd:Q1054574.
+
+            ?film wdt:P57 ?director.
+
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+            }
+
+            LIMIT 100
+        </code>
+    </pre>
+    <hr/>
+    <iframe style="width: 80vw; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#%23defaultView%3AImageGrid%0A%0ASELECT%20DISTINCT%20%3Ffilm_poster%20%3Fdirector%20%3FdirectorLabel%20%3Ffilm%20%3FfilmLabel%20%3Ftitle%20WHERE%20%7B%0A%0A%20%20%3Ffilm%20wdt%3AP31%20wd%3AQ11424%3B%0A%0A%20%20%20%20wdt%3AP3383%20%3Ffilm_poster%3B%0A%0A%20%20%20%20wdt%3AP1476%20%3Ftitle.%0A%0A%20%20%3Ffilm%20wdt%3AP136%20wd%3AQ1054574.%0A%0A%20%20%3Ffilm%20wdt%3AP57%20%3Fdirector.%0A%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%0A%7D%0A%0ALIMIT%20100" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+</body>
+</html>
